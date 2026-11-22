@@ -157,6 +157,7 @@ Every step of the design, modeling, and coding journey is documented day by day:
 - [Day 1: Project Kickoff, The 30-Day Constraint & Fusion 360 Basics](docs/daily-logs/Day-01.md)
 - [Day 2: Ideation, Case Study & The Pivot to PondSense](docs/daily-logs/Day-02.md)
 - [Day 3: Mechanical Architecture Blueprint & Conical Hull Design](docs/daily-logs/Day-03.md)
+- [Day 4: 3D Conical Hull Complete & ESP32 Firmware Scaffolding](docs/daily-logs/Day-04.md)
 - *Upcoming logs committed daily.*
 
 ---
