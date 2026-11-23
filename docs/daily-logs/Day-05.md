@@ -20,6 +20,14 @@ The top lid serves three vital functions:
 * **Antenna Port:** `Ø 6.5 mm` through-hole at 12 o'clock
 * **Gasket Track:** Concentric groove between `Ø 120 mm` and `Ø 126 mm`, depth `2.0 mm`
 
+### CAD Model Visuals
+
+<div align="center">
+  <img src="../solar-lid-top.jpg" alt="PondSense Top Solar Lid - Top View" width="48%" />
+  <img src="../solar-lid-bottom.jpg" alt="PondSense Top Solar Lid - Bottom View O-Ring Groove" width="48%" />
+  <p><em>Figure 5.1: Top Solar Lid — (Left) Recessed 80×80 mm solar panel pocket and 6.5 mm antenna port; (Right) Underside concentric silicone O-ring retention track (Ø 120–126 mm).</em></p>
+</div>
+
 ---
 
 ## 2. Firmware Integration: Water Temperature & DO Solubility
