@@ -159,6 +159,7 @@ Every step of the design, modeling, and coding journey is documented day by day:
 - [Day 3: Mechanical Architecture Blueprint & Conical Hull Design](docs/daily-logs/Day-03.md)
 - [Day 4: 3D Conical Hull Complete & ESP32 Firmware Scaffolding](docs/daily-logs/Day-04.md)
 - [Day 5: Top Solar Lid Design & DS18B20 Temperature Compensation](docs/daily-logs/Day-05.md)
+- [Day 6: Submerged Sensor Shroud Design & Analog pH / Turbidity Drivers](docs/daily-logs/Day-06.md)
 - *Upcoming logs committed daily.*
 
 ---

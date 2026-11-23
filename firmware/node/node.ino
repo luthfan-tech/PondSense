@@ -2,13 +2,18 @@
  * @file node.ino
  * @brief PondSense Buoy Node - Main Firmware Entry
  * @project PondSense
+ * @author Luthfan
  */
 
 #include "config.h"
 #include "temp_sensor.h"
+#include "ph_sensor.h"
+#include "turbidity_sensor.h"
 
 // Hardware Drivers
 WaterTempSensor tempSensor(PIN_ONE_WIRE_BUS);
+PHSensor phSensor(PIN_PH_ANALOG);
+TurbiditySensor turbiditySensor(PIN_TURBIDITY);
 
 // Telemetry state
 BuoyTelemetryPacket packet;
@@ -18,7 +23,7 @@ void setup() {
     Serial.begin(115200);
     delay(1000);
     Serial.println(F("========================================"));
-    Serial.println(F(" PondSense Buoy Node v1.0 Booting...   "));
+    Serial.println(F(" PondSense Buoy Node v1.1 Booting...   "));
     Serial.println(F(" Indian 865 MHz ISM Telemetry System   "));
     Serial.println(F("========================================"));
 
@@ -26,8 +31,10 @@ void setup() {
     pinMode(PIN_STATUS_LED, OUTPUT);
     digitalWrite(PIN_STATUS_LED, LOW);
 
-    // Initialize Temperature Driver
+    // Initialize Sensor Drivers
     tempSensor.begin();
+    phSensor.begin();
+    turbiditySensor.begin();
 
     // Pin configuration verification
     Serial.printf("[INIT] DS18B20 1-Wire Pin: GPIO %d\n", PIN_ONE_WIRE_BUS);
@@ -50,24 +57,26 @@ void loop() {
     packet.water_temp_c = tempSensor.readTemperatureC();
     float max_do_sat = tempSensor.calculateMaxDOSaturation(packet.water_temp_c);
     
-    // Read raw ADC values
-    int raw_ph = analogRead(PIN_PH_ANALOG);
-    int raw_turb = analogRead(PIN_TURBIDITY);
-    int raw_bat = analogRead(PIN_BATTERY_SENSE);
+    // Read pH with dynamic temperature compensation
+    packet.ph_value = phSensor.readPH(packet.water_temp_c);
 
-    // Convert to engineering units (with temperature compensation)
-    packet.ph_value         = map(raw_ph, 0, 4095, 0, 1400) / 100.0f;
-    packet.turbidity_ntu    = map(raw_turb, 0, 4095, 0, 1000) / 10.0f;
-    packet.dissolved_oxygen = 0.85f * max_do_sat; // 85% saturation estimate until DO probe calibrated
-    packet.battery_voltage  = (raw_bat / 4095.0f) * 3.3f * 2.0f; // 2:1 voltage divider
+    // Read Turbidity in NTU
+    packet.turbidity_ntu = turbiditySensor.readTurbidityNTU();
+
+    // Read Battery Voltage Divider
+    int raw_bat = analogRead(PIN_BATTERY_SENSE);
+    packet.battery_voltage = (raw_bat / 4095.0f) * 3.3f * 2.0f; // 2:1 resistive divider
+
+    // Dissolved Oxygen: Estimate based on saturation model until galvanic DO amplifier is live
+    packet.dissolved_oxygen = 0.85f * max_do_sat; 
 
     // 2. Print Serial Diagnostics
-    Serial.printf("Node ID:      %02X\n", packet.node_id);
+    Serial.printf("Node ID:      0x%02X\n", packet.node_id);
     Serial.printf("Packet #:     %lu\n", packet.message_id);
-    Serial.printf("Water Temp:   %.2f C\n", packet.water_temp_c);
-    Serial.printf("Max DO Sat:   %.2f mg/L (at %.1f C)\n", max_do_sat, packet.water_temp_c);
-    Serial.printf("pH Level:     %.2f\n", packet.ph_value);
-    Serial.printf("Turbidity:    %.1f NTU\n", packet.turbidity_ntu);
+    Serial.printf("Water Temp:   %.2f °C\n", packet.water_temp_c);
+    Serial.printf("Max DO Sat:   %.2f mg/L (at %.1f °C)\n", max_do_sat, packet.water_temp_c);
+    Serial.printf("pH Level:     %.2f (Voltage: %.3f V)\n", packet.ph_value, phSensor.getFilteredVoltage());
+    Serial.printf("Turbidity:    %.1f NTU [%s]\n", packet.turbidity_ntu, turbiditySensor.getWaterClarityStatus(packet.turbidity_ntu));
     Serial.printf("DO Level:     %.2f mg/L\n", packet.dissolved_oxygen);
     Serial.printf("Battery:      %.2f V\n", packet.battery_voltage);
 
