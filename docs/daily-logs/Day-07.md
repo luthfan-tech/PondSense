@@ -31,6 +31,14 @@ Using **Inspect → Section Analysis**, an axial cutaway was performed across th
 * **Internal Sled Envelope:** Verifies that the internal electronics sled cavity (`Ø 114 mm` down to `Ø 55 mm`) comfortably accommodates the 18650 cell holder, ESP32 DevKit, and TP4056 charge board.
 * **O-Ring Compression Zone:** Confirms a nominal `0.5 mm` compression clearance for a standard `2.5 mm` silicone cord gasket.
 
+### Assembly CAD Visuals
+
+<div align="center">
+  <img src="../buoy-parts-pre-assembly.jpg" alt="PondSense 3 Core Parts Pre-Assembly" width="48%" />
+  <img src="../buoy-lid-flange-section.png" alt="PondSense Flange Seam Section Analysis" width="48%" />
+  <p><em>Figure 7.1: (Left) Discrete 3-part modular buoy components prior to joint alignment; (Right) Close-up Section Analysis demonstrating zero-overlap coplanar mating and O-ring gasket compression channel.</em></p>
+</div>
+
 ---
 
 ## 2. Embedded Firmware Engineering: 865 MHz LoRa Telemetry & Deep Sleep
