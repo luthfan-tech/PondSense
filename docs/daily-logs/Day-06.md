@@ -21,6 +21,13 @@ In outdoor aquaculture fish ponds, raw sensor glass bulbs and optical lenses fac
 * **Water Circulation Slots:** 6× longitudinal slots (`8.0 mm` width × `40.0 mm` height) spaced symmetrically at 60° intervals via Circular Pattern.
 * **Anchor Mooring Port:** Central `Ø 8.0 mm` through-hole on the bottom face to secure nylon anchor tether rope.
 
+### CAD Model Visual
+
+<div align="center">
+  <img src="../sensor-cage.png" alt="PondSense Submerged Sensor Shroud" width="55%" />
+  <p><em>Figure 6.1: Submerged Sensor Shroud (Part 3) — 6x radial hydrodynamic intake vents with solid protective bottom floor and center anchor port.</em></p>
+</div>
+
 ---
 
 ## 2. Firmware Engineering: Analog pH & Optical Turbidity Drivers
