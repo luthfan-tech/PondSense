@@ -19,7 +19,15 @@ A floating water quality buoy must never place loose electronics or batteries in
 * **Bottom Width:** `42.0 mm` (nests into the narrow bottom cone apex)
 * **Spine Plate Thickness:** `3.0 mm` (rigid PETG print)
 * **Top Alignment Ears:** 2× locking tabs (`6.0 mm` width × `4.0 mm` height) that engage the 6 internal keyway notches modeled on Day 4.
-* **Component Mounting Zones:**
+
+### CAD Model Visual
+
+<div align="center">
+  <img src="../sled-spine-render.png" alt="PondSense Internal Electronics Sled Spine" width="50%" />
+  <p><em>Figure 8.1: Internal Electronics Sled Spine (Part 4) — Tapered structural backbone with dual upper locking ears to prevent internal rotational twist.</em></p>
+</div>
+
+### Component Mounting Zones
   * **Lower Apex Zone:** 18650 cell holder mounting bracket (`18.5 mm` cradle radius, `65 mm` length).
   * **Mid Spine Zone:** ESP32-WROOM-32 30-pin DevKit footprint (`52×28 mm`) with zip-tie anchor slots.
   * **Upper Zone:** TP4056 USB-C solar charge controller mount (`28×17 mm`).
