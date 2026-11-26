@@ -32,3 +32,14 @@ config.local.json
 node_modules/
 dist/
 .cache/
+
+# Python & Databases
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.sqlite3
+venv/
+.venv/

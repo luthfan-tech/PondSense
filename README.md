@@ -162,6 +162,7 @@ Every step of the design, modeling, and coding journey is documented day by day:
 - [Day 6: Submerged Sensor Shroud Design & Analog pH / Turbidity Drivers](docs/daily-logs/Day-06.md)
 - [Day 7: Full Mechanical Buoy Assembly, Section Analysis & LoRa Deep Sleep](docs/daily-logs/Day-07.md)
 - [Day 8: Internal Electronics Sled Design & Gateway Firmware Scaffolding](docs/daily-logs/Day-08.md)
+- [Day 9: 18650 Battery Cradle Geometry & Python Telemetry Bridge](docs/daily-logs/Day-09.md)
 - *Upcoming logs committed daily.*
 
 ---
