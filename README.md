@@ -161,6 +161,7 @@ Every step of the design, modeling, and coding journey is documented day by day:
 - [Day 5: Top Solar Lid Design & DS18B20 Temperature Compensation](docs/daily-logs/Day-05.md)
 - [Day 6: Submerged Sensor Shroud Design & Analog pH / Turbidity Drivers](docs/daily-logs/Day-06.md)
 - [Day 7: Full Mechanical Buoy Assembly, Section Analysis & LoRa Deep Sleep](docs/daily-logs/Day-07.md)
+- [Day 8: Internal Electronics Sled Design & Gateway Firmware Scaffolding](docs/daily-logs/Day-08.md)
 - *Upcoming logs committed daily.*
 
 ---
