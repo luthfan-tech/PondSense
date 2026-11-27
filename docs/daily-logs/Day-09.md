@@ -16,9 +16,15 @@ A key tenet of naval architecture in floating water buoys is the **Center of Gra
 
 ### Cradle Geometry & Specifications
 * **Battery Form Factor:** Standard 18650 cylinder (`18.5 mm` outer diameter with shrink sleeve, `65.0 mm` length).
-* **Cradle Profile:** Semicircular cradle ribs (`R = 9.5 mm` inner radius, `3.0 mm` wall thickness) projecting `15.0 mm` perpendicularly from the front face of the lower sled spine.
-* **Retention Mechanism:** Dual zip-tie slots (`3.0 mm × 1.5 mm`) allowing quick-release nylon zip-tie clamping for field battery swaps without screws.
-* **Component Clearance:** Leaves `12.0 mm` bottom clearance above the hull's lower cable glands to allow probe signal wires to route cleanly upward to the ESP32.
+* **Cradle Profile:** Cylindrical mounting collar (`Ø 20.0 mm` inner diameter, `3.0 mm` wall thickness) projecting `15.0 mm` perpendicularly from the front face of the lower sled spine.
+* **Component Clearance:** Leaves `15.0 mm` bottom clearance above the hull's lower cable glands to allow probe signal wires to route cleanly upward to the ESP32.
+
+### CAD Model Visual
+
+<div align="center">
+  <img src="../sled-with-collar.png" alt="PondSense Internal Electronics Sled with Battery Collar" width="48%" />
+  <p><em>Figure 9.1: Internal Electronics Sled with lower component collar and upper anti-rotation alignment tabs.</em></p>
+</div>
 
 ---
 
