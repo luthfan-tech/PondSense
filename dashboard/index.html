@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PondSense | Live Aquaculture Water Quality Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js for real-time diurnal trend charting -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Top Navigation & Header -->
+        <header class="top-nav">
+            <div class="brand">
+                <div class="logo-mark">🌊</div>
+                <div>
+                    <h1>PondSense</h1>
+                    <p class="subtitle">Autonomous Solar Aquaculture Telemetry</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <span class="status-badge" id="connectionBadge">
+                    <span class="dot"></span>
+                    <span id="connectionText">865 MHz LIVE LINK</span>
+                </span>
+                <span class="node-badge" id="nodeBadge">POND #1 (NURSERY)</span>
+            </div>
+        </header>
+
+        <!-- Emergency Hypoxia Alert Banner -->
+        <section class="alert-banner" id="hypoxiaAlertBanner" style="display: none;">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <h3 id="alertTitle">CRITICAL OXYGEN HAZARD DETECTED!</h3>
+                <p id="alertMessage">Dissolved oxygen has fallen below 3.0 mg/L. Turn on paddlewheel aerators immediately to prevent fish asphyxiation.</p>
+            </div>
+            <button class="ack-btn" id="ackBtn" onclick="dismissAlert()">Acknowledge</button>
+        </section>
+
+        <!-- Key Sensor Cards Grid -->
+        <section class="metrics-grid">
+            <!-- 1. Dissolved Oxygen (The Hero Metric) -->
+            <div class="card metric-card do-card" id="doCard">
+                <div class="card-header">
+                    <span class="metric-title">Dissolved Oxygen (DO)</span>
+                    <span class="metric-tag do-tag" id="doTag">OPTIMAL</span>
+                </div>
+                <div class="card-body">
+                    <div class="metric-val-group">
+                        <span class="metric-value" id="doValue">--</span>
+                        <span class="metric-unit">mg/L</span>
+                    </div>
+                    <div class="range-meter">
+                        <div class="meter-bar" id="doMeterBar" style="width: 75%;"></div>
+                    </div>
+                    <div class="range-labels">
+                        <span>0 Lethal</span>
+                        <span>3.0 Danger</span>
+                        <span>4.5 Safe</span>
+                        <span>8.0+ Sat</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Water pH Level -->
+            <div class="card metric-card">
+                <div class="card-header">
+                    <span class="metric-title">Water pH Level</span>
+                    <span class="metric-tag ph-tag" id="phTag">NEUTRAL</span>
+                </div>
+                <div class="card-body">
+                    <div class="metric-val-group">
+                        <span class="metric-value" id="phValue">--</span>
+                        <span class="metric-unit">pH</span>
+                    </div>
+                    <div class="range-meter">
+                        <div class="meter-bar ph-bar" id="phMeterBar" style="width: 53%;"></div>
+                    </div>
+                    <div class="range-labels">
+                        <span>Acidic &lt; 6.5</span>
+                        <span>7.0 Neutral</span>
+                        <span>&gt; 8.5 Toxic NH3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Water Temperature -->
+            <div class="card metric-card">
+                <div class="card-header">
+                    <span class="metric-title">Water Temperature</span>
+                    <span class="metric-tag" id="tempTag">NORMAL</span>
+                </div>
+                <div class="card-body">
+                    <div class="metric-val-group">
+                        <span class="metric-value" id="tempValue">--</span>
+                        <span class="metric-unit">°C</span>
+                    </div>
+                    <p class="helper-text" id="maxSatText">Max DO Saturation: ~7.8 mg/L</p>
+                </div>
+            </div>
+
+            <!-- 4. Water Turbidity / TSS -->
+            <div class="card metric-card">
+                <div class="card-header">
+                    <span class="metric-title">Turbidity (Clarity)</span>
+                    <span class="metric-tag" id="turbTag">CLEAR</span>
+                </div>
+                <div class="card-body">
+                    <div class="metric-val-group">
+                        <span class="metric-value" id="turbValue">--</span>
+                        <span class="metric-unit">NTU</span>
+                    </div>
+                    <p class="helper-text" id="turbDesc">Clear water (Optimal for fish health)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-time 24-Hour Diurnal Chart -->
+        <section class="chart-section card">
+            <div class="chart-header">
+                <div>
+                    <h2>24-Hour Dissolved Oxygen & Temperature Trend</h2>
+                    <p class="subtitle">Monitors the critical 2:00 AM – 6:00 AM hypoxia danger window</p>
+                </div>
+                <span class="safe-zone-legend">
+                    <span class="legend-swatch danger"></span> Lethal Zone (&lt; 3.0 mg/L)
+                    <span class="legend-swatch safe"></span> Safe Zone (&gt; 4.5 mg/L)
+                </span>
+            </div>
+            <div class="chart-canvas-container">
+                <canvas id="telemetryChart"></canvas>
+            </div>
+        </section>
+
+        <!-- System Diagnostics Bar -->
+        <footer class="system-footer card">
+            <div class="diag-item">
+                <span class="diag-label">Node Battery</span>
+                <span class="diag-value" id="batValue">-- V</span>
+            </div>
+            <div class="diag-item">
+                <span class="diag-label">LoRa Signal</span>
+                <span class="diag-value" id="rssiValue">-- dBm</span>
+            </div>
+            <div class="diag-item">
+                <span class="diag-label">SNR Ratio</span>
+                <span class="diag-value" id="snrValue">-- dB</span>
+            </div>
+            <div class="diag-item">
+                <span class="diag-label">Last Transmission</span>
+                <span class="diag-value" id="lastTxValue">Just now</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
