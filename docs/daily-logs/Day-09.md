@@ -22,8 +22,10 @@ A key tenet of naval architecture in floating water buoys is the **Center of Gra
 ### CAD Model Visual
 
 <div align="center">
-  <img src="../sled-with-collar.png" alt="PondSense Internal Electronics Sled with Battery Collar" width="48%" />
-  <p><em>Figure 9.1: Internal Electronics Sled with lower component collar and upper anti-rotation alignment tabs.</em></p>
+  <img src="../sled-with-collar.png" alt="PondSense Internal Electronics Sled with Battery Collar" width="30%" />
+  <img src="../buoy-assembly-sled-ghosted.png" alt="PondSense Sled Insertion" width="32%" />
+  <img src="../buoy-full-assembly-complete-section.png" alt="PondSense Full Assembly Complete Section Analysis" width="32%" />
+  <p><em>Figure 9.1: (Left) Sled spine with lower mounting collar; (Middle) Internal sled insertion into hull; (Right) Master Section Analysis proving complete internal fitment, zero-overlap sealing, and PG7 gland clearance.</em></p>
 </div>
 
 ---
