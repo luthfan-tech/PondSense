@@ -164,6 +164,7 @@ Every step of the design, modeling, and coding journey is documented day by day:
 - [Day 8: Internal Electronics Sled Design & Gateway Firmware Scaffolding](docs/daily-logs/Day-08.md)
 - [Day 9: 18650 Battery Cradle Geometry & Python Telemetry Bridge](docs/daily-logs/Day-09.md)
 - [Day 10: Flask REST API Server & Farmer Mobile Web Dashboard](docs/daily-logs/Day-10.md)
+- [Day 11: Telegram Emergency Alert Engine & Automated Test Suite](docs/daily-logs/Day-11.md)
 - *Upcoming logs committed daily.*
 
 ---

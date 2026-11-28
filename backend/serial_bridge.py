@@ -10,6 +10,7 @@ import json
 import argparse
 import random
 from database import init_db, insert_telemetry, log_alert
+from telegram_alerts import send_telegram_alert
 
 # Safety Thresholds
 DO_CRITICAL_THRESHOLD = 3.0    # mg/L (Asphyxiation danger)
@@ -48,13 +49,22 @@ def process_telemetry_line(raw_line: str):
     node_id = data["node_id"]
 
     if dissolved_oxygen < DO_CRITICAL_THRESHOLD:
+        msg = f"CRITICAL HYPOXIA HAZARD: DO level dropped to {dissolved_oxygen:.2f} mg/L! Turn on pond aerators immediately!"
         log_alert(
             node_id=node_id,
             parameter="Dissolved Oxygen",
             value=dissolved_oxygen,
             threshold=DO_CRITICAL_THRESHOLD,
             severity="CRITICAL",
-            message=f"CRITICAL HYPOXIA HAZARD: DO level dropped to {dissolved_oxygen:.2f} mg/L! Turn on pond aerators immediately!"
+            message=msg
+        )
+        send_telegram_alert(
+            node_id=node_id,
+            hazard_type="Dissolved Oxygen Crash (< 3.0 mg/L)",
+            current_value=dissolved_oxygen,
+            unit="mg/L",
+            action_message="Turn on pond aerators immediately to avoid fish asphyxiation!",
+            severity="CRITICAL"
         )
     elif dissolved_oxygen < DO_WARNING_THRESHOLD:
         log_alert(
